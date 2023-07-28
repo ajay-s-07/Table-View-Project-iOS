@@ -52,6 +52,20 @@ class TableCell: UITableViewCell {
         
     }
     
+    func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, resp, err in
+            if let data = data {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.imgView.image = image
+                    }
+                }
+            }
+        }.resume()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -10,6 +10,7 @@ import UIKit
 class TableViewController: UITableViewController, UISearchBarDelegate {
     
     let fetchMusic = ViewModel()
+    var results = [Result]()
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -23,7 +24,13 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
             
         tableView.register(TableCell.self, forCellReuseIdentifier: "Id")
-        fetchMusic.loadMusicData()
+        fetchMusic.loadMusicData { results in
+            print(results.count)
+            self.results = results
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,13 +39,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return results.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Id", for: indexPath) as! TableCell
-        cell.label.text = "Song Title \(indexPath.row+1)"
-        cell.backgroundColor = .systemGray5
+        
+        let result = results[indexPath.item]
+        
+        cell.label.text = result.trackName
+        cell.label2.text = result.artistName
+        cell.loadImage(from: result.artworkUrl100)
+        
         return cell
     }
     

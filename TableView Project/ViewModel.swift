@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewModel {
-    func loadMusicData() {
+    func loadMusicData(onCompletion: @escaping ([Result]) -> () ) {
         let string = "https://itunes.apple.com/search?term=taylor+swift&entity=song"
         
         guard let url = URL(string: string) else { return }
@@ -17,6 +17,8 @@ class ViewModel {
             if let data = data {
                 do{
                     print(String(data: data, encoding: .utf8)!)
+                    let results = try JSONDecoder().decode(SearchResult.self, from: data)
+                    onCompletion(results.results)
                 }
                 catch {
                     print(error.localizedDescription)
