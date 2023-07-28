@@ -47,8 +47,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         
         let result = results[indexPath.item]
         
-        cell.label.text = result.trackName
-        cell.label2.text = result.artistName
+        cell.musicName.text = result.trackName
+        cell.artistName.text = result.artistName
         cell.loadImage(from: result.artworkUrl100)
         
         return cell

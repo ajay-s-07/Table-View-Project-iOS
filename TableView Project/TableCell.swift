@@ -10,8 +10,8 @@ import UIKit
 class TableCell: UITableViewCell {
     
     let imgView = UIImageView()
-    let label = UILabel()
-    let label2 = UILabel()
+    let musicName = UILabel()
+    let artistName = UILabel()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -28,27 +28,27 @@ class TableCell: UITableViewCell {
         imgView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
         
-        label.text = "Hello World!"
-        label.font = .boldSystemFont(ofSize: 24)
-        label.textAlignment = .left
+        musicName.text = "Hello World!"
+        musicName.font = .boldSystemFont(ofSize: 24)
+        musicName.textAlignment = .left
         
-        addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        label.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
-        label.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        addSubview(musicName)
+        musicName.translatesAutoresizingMaskIntoConstraints = false
+        musicName.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        musicName.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
+        musicName.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        musicName.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        label2.text = "Artist Name"
-        label2.font = .systemFont(ofSize: 16)
-        label2.textAlignment = .left
+        artistName.text = "Artist Name"
+        artistName.font = .systemFont(ofSize: 16)
+        artistName.textAlignment = .left
         
-        addSubview(label2)
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        label2.topAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
-        label2.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
-        label2.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        label2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        addSubview(artistName)
+        artistName.translatesAutoresizingMaskIntoConstraints = false
+        artistName.topAnchor.constraint(equalTo: musicName.bottomAnchor).isActive = true
+        artistName.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
+        artistName.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        artistName.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
         
     }
     
