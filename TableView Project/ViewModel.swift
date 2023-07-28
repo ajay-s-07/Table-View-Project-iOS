@@ -8,15 +8,13 @@
 import UIKit
 
 class ViewModel {
-    func loadMusicData(onCompletion: @escaping ([Result]) -> () ) {
-        let string = "https://itunes.apple.com/search?term=taylor+swift&entity=song"
-        
+    func loadMusicData(string: String, onCompletion: @escaping ([Result]) -> () ) {
+                
         guard let url = URL(string: string) else { return }
         
         URLSession.shared.dataTask(with: url) { data, resp, err in
             if let data = data {
                 do{
-                    print(String(data: data, encoding: .utf8)!)
                     let results = try JSONDecoder().decode(SearchResult.self, from: data)
                     onCompletion(results.results)
                 }

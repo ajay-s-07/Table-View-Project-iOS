@@ -9,8 +9,10 @@ import UIKit
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
     
-    let fetchMusic = ViewModel()
+    let viewModel = ViewModel()
     var results = [Result]()
+    let string = "https://itunes.apple.com/search?term=taylor+swift&entity=song"
+
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -24,8 +26,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
             
         tableView.register(TableCell.self, forCellReuseIdentifier: "Id")
-        fetchMusic.loadMusicData { results in
-            print(results.count)
+        viewModel.loadMusicData(string: string) { results in
             self.results = results
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -67,6 +68,13 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        searchText.replacingOccurrences(of: " ", with: "+")
+        let searchTerm = "https://itunes.apple.com/search?term=\(searchText)&entity=song"
+        viewModel.loadMusicData(string: searchTerm) { results in
+            self.results = results
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 }
